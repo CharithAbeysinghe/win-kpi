@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +15,37 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
+
+Auth::routes();
+Route::
+Route::prefix('admin')->middleware('isAdmin')->group(function () {
+    Route::get('/dashboard', [App\Http\Controllers\AdminController::class, 'index'])->name('admin_dashboard');
+    Route::get('/user', [App\Http\Controllers\AdminController::class, 'user'])->name('user');
+    Route::get('/user-permission', [App\Http\Controllers\AdminController::class, 'user_permission'])->name('user-permission');
+});
+
+Route::prefix('kpi')->middleware('isAdmin')->group(function (){
+    Route::get('/view', [App\Http\Controllers\AdminController::class, 'index'])->name('kpi-add');
+    Route::get('/option-view', [App\Http\Controllers\AdminController::class, 'option_view'])->name('option_view');
+    Route::post('add', [App\Http\Controllers\LocationController::class, 'add']);
+    Route::post('add_option', [App\Http\Controllers\LocationController::class, 'add_option']);
+});
+
+Route::prefix('location')->middleware('isAdmin')->group(function (){
+    Route::post('add', [App\Http\Controllers\LocationController::class, 'add']);
+    Route::get('/view', [App\Http\Controllers\LocationController::class, 'index'])->name('fac-view');
+});
+
+Route::prefix('department')->middleware('isAdmin')->group(function () {
+    Route::post('add', [App\Http\Controllers\DepartmentController::class, 'add']);
+    Route::get('/view', [App\Http\Controllers\DepartmentController::class, 'index'])->name('dep-view');
+});
+
+Route::prefix('form')->group(function () {
+    // Route::get('/input_text', [App\Http\Controllers\FormController::class, 'input_text'])->name('admin_dashboard');
+});
+
+
+
