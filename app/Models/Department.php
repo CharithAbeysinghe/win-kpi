@@ -10,5 +10,5 @@ class Department extends Model
 {
     use HasFactory,SoftDeletes;
 
-    protected $fillable = ['location_id','department'];
+    protected $fillable = ['department'];
 }

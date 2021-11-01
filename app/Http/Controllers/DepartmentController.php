@@ -16,11 +16,10 @@ class DepartmentController extends Controller
     
     public function index(){
         $department = Department::get();
-        $location = Location::get();
         $title = 'Department';
         $page = 'Department';
         $page_sub = 'View';
-        return view('master.department.index',compact('department','title','page','page_sub','location'));
+        return view('master.department.index',compact('department','title','page','page_sub'));
     }
 
     public function add(Request $request){
@@ -28,7 +27,6 @@ class DepartmentController extends Controller
             try{
 
             $department = Department::create([
-                'location_id' => $request->location_id,
                 'department' => $request->department,
             ]);
         

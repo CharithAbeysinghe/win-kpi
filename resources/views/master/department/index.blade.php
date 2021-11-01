@@ -9,22 +9,20 @@
     @include('submit-form',
     [
 
-    'header' => "New Location",
+    'header' => "New Department",
 
     'url'    => "department/add",
 
     'form_component' => [
-
-            ['ht_type'=>'select','name'=>'location_id','array'=>$location,'array_opt'=>['value'=>'id','opt'=>'location']],
 
             ['ht_type'=>'input','name'=>'department'],
     ],
 
     'data_array' => $department,
 
-    'th_array'   => ['Location','Department','Edit','Disable'],
+    'th_array'   => ['Department','Edit','Disable'],
 
-    'td_array'   => ['','department','',''],
+    'td_array'   => ['department','',''],
 
     ])
 </div>
