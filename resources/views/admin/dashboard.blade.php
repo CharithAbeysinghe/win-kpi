@@ -61,48 +61,22 @@
             @foreach ($kpi as $items)
             <div class="tab-pane fade show" id="custom-tabs-four-home{{$items->id}}" role="tabpanel" aria-labelledby="custom-tabs-four-home-tab{{$items->id}}">
                 <div>
-                    <div class="form-inline d-flex justify-content-center">
-                        <div class="form-group mb-2">
-                          <label for="staticEmail2" class="sr-only"></label>
-                          <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="Requierd Carder">
-                        </div>
-                        <div class="form-group mx-sm-3 mb-2">
-                          <label for="inputPassword2" class="sr-only"></label>
-                          <input type="password" class="form-control" id="inputPassword2" placeholder="">
-                        </div>
-                    </div>
-                    <div class="form-inline d-flex justify-content-center">
-                        <div class="form-group mb-2">
-                          <label for="staticEmail2" class="sr-only"></label>
-                          <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="Running(Average)">
-                        </div>
-                        <div class="form-group mx-sm-3 mb-2">
-                          <label for="inputPassword2" class="sr-only"></label>
-                          <input type="password" class="form-control" id="inputPassword2" placeholder="">
-                        </div>
-                    </div>
-                    <div class="form-inline d-flex justify-content-center">
-                        <div class="form-group mb-2">
-                          <label for="staticEmail2" class="sr-only"></label>
-                          <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="Training school">
-                        </div>
-                        <div class="form-group mx-sm-3 mb-2">
-                          <label for="inputPassword2" class="sr-only"></label>
-                          <input type="password" class="form-control" id="inputPassword2" placeholder="">
-                        </div>
-                    </div>
-                    <div class="form-inline d-flex justify-content-center mt-5">
-                      <div class="form-group mb-2">
-                        <label for="staticEmail2" class="sr-only"></label>
-                        <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="Total">
-                      </div>
-                      <div class="form-group mx-sm-3 mb-2">
-                        <label for="inputPassword2" class="sr-only"></label>
-                        <input type="password" class="form-control" id="inputPassword2" placeholder="">
-                      </div>
-                  </div>
-                </div>
+                  
+                  
+                  @foreach($items->get_options() as $option)
                 
+                  <div class="form-inline d-flex justify-content-center">
+                    <div class="form-group mb-2">
+                      <label for="staticEmail2" class="sr-only"></label>
+                      <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="{{$option->kpi_option}}">
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                      <label for="inputPassword2" class="sr-only"></label>
+                      <input type="password" class="form-control" id="inputPassword2" placeholder="">
+                    </div>
+                </div> 
+                  @endforeach
+                </div>
             </div>
             @endforeach
           </div>
