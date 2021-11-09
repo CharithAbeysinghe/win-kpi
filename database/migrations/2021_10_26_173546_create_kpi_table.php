@@ -15,6 +15,8 @@ class CreateKpiTable extends Migration
     {
         Schema::create('kpis', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('department_id');
+            $table->foreign('department_id')->references('id')->on('departments');
             $table->string('kpi');
             $table->timestamps();
             $table->softDeletes();

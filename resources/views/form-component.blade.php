@@ -10,6 +10,7 @@ $value = $item['array_opt']['value'];
 $opt = $item['array_opt']['opt'];
 @endphp
 <select name="{{$item['name']}}" class="form-control">
+  <option value="0">--Select--</option>
   @foreach ($item['array'] as $item_data)
             <option value="{{$item_data->$value}}">{{$item_data->$opt}}</option>
   @endforeach

@@ -25,12 +25,12 @@ Route::prefix('admin')->middleware('isAdmin')->group(function () {
     Route::get('/user-permission', [App\Http\Controllers\AdminController::class, 'user_permission'])->name('user-permission');
 });
 
-Route::prefix('kpi')->middleware('isAdmin')->group(function (){
-    Route::get('/view', [App\Http\Controllers\AdminController::class, 'index'])->name('kpi-add');
-    Route::get('/option-view', [App\Http\Controllers\AdminController::class, 'option_view'])->name('option_view');
-    Route::post('add', [App\Http\Controllers\LocationController::class, 'add']);
-    Route::post('add_option', [App\Http\Controllers\LocationController::class, 'add_option']);
-});
+// Route::prefix('kpi')->middleware('isAdmin')->group(function (){
+//     Route::get('/view', [App\Http\Controllers\AdminController::class, 'index'])->name('kpi-add');
+//     Route::get('/option-view', [App\Http\Controllers\AdminController::class, 'option_view'])->name('option_view');
+//     Route::post('add', [App\Http\Controllers\LocationController::class, 'add']);
+//     Route::post('add_option', [App\Http\Controllers\LocationController::class, 'add_option']);
+// });
 
 Route::prefix('location')->middleware('isAdmin')->group(function (){
     Route::post('add', [App\Http\Controllers\LocationController::class, 'add']);
@@ -42,8 +42,21 @@ Route::prefix('department')->middleware('isAdmin')->group(function () {
     Route::get('/view', [App\Http\Controllers\DepartmentController::class, 'index'])->name('dep-view');
 });
 
-Route::prefix('form')->group(function () {
-    // Route::get('/input_text', [App\Http\Controllers\FormController::class, 'input_text'])->name('admin_dashboard');
+Route::prefix('department')->middleware('isAdmin')->group(function () {
+    Route::post('add', [App\Http\Controllers\DepartmentController::class, 'add']);
+    Route::get('/view', [App\Http\Controllers\DepartmentController::class, 'index'])->name('dep-view');
+});
+
+Route::prefix('kpi')->middleware('isAdmin')->group(function (){
+    Route::post('add', [App\Http\Controllers\KpiController::class, 'add']);
+    Route::get('/view',[App\Http\Controllers\KpiController::class,'index'])->name('kpi-view');
+    Route::get('kpi-option', [App\Http\Controllers\KpiController::class, 'index_option']);
+    Route::post('add-option', [App\Http\Controllers\KpiController::class, 'add_option']);
+
+});
+
+Route::prefix('kpi-form')->middleware('isUser')->group(function () {
+    // echo 'sdsds';
 });
 
 

@@ -23,6 +23,9 @@
                 @foreach ($data_array as $item)
                 <tr>
                     @foreach ($td_array as $td)
+                    @php 
+                            echo $item->get_kpi()->kpi ;
+                    @endphp
                     <td>{{$item->$td}}</td>
                     @endforeach
                 </tr>
