@@ -13,7 +13,9 @@ class AdminController extends Controller
     }
     
     public function index(){
+
         $kpi = Kpi::where('department_id',2)->get();
+        
         return view('admin.dashboard',compact('kpi'));
     }
 }
