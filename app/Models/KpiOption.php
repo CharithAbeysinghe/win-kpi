@@ -13,6 +13,8 @@ class KpiOption extends Model
     protected $fillable = ['kpi_id','kpi_option'];
 
     public function get_kpi(){
+        
         return $this->belongsTo(\App\Models\Kpi::class,'kpi_id')->first();
+        
     }
 }
