@@ -36,7 +36,7 @@ class RegisterController extends Controller
         if (auth()->user()->u_tp_id == '1') {
             return '/admin/dashboard';
         }
-        return '/home';
+        return '/user/dashboard';
     }
 
     /**
@@ -61,6 +61,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'user_type' => ['required'],
         ]);
     }
 
@@ -76,6 +77,9 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'u_tp_id' => $data['user_type'],
+            'location_id' => $data['location_id'],
+            'department_id' => $data['department_id']
         ]);
     }
 }

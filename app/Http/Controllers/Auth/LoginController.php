@@ -32,8 +32,10 @@ class LoginController extends Controller
     {
         if (auth()->user()->u_tp_id == '1') {
             return '/admin/dashboard';
+        }else if(auth()->user()->u_tp_id == '2'){
+            return '/user/dashboard';
         }
-        return '/home';
+        
     }
 
     /**

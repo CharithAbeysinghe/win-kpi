@@ -22,6 +22,7 @@ Auth::routes();
 Route::prefix('admin')->middleware('isAdmin')->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\AdminController::class, 'index'])->name('admin_dashboard');
     Route::get('/user', [App\Http\Controllers\AdminController::class, 'user'])->name('user');
+    Route::post('/register',[App\Http\Controllers\UserController::class,'register']);
     Route::get('/user-permission', [App\Http\Controllers\AdminController::class, 'user_permission'])->name('user-permission');
 });
 
@@ -52,11 +53,10 @@ Route::prefix('kpi')->middleware('isAdmin')->group(function (){
     Route::get('/view',[App\Http\Controllers\KpiController::class,'index'])->name('kpi-view');
     Route::get('kpi-option', [App\Http\Controllers\KpiController::class, 'index_option']);
     Route::post('add-option', [App\Http\Controllers\KpiController::class, 'add_option']);
-
 });
 
-Route::prefix('kpi-form')->middleware('isUser')->group(function () {
-    // echo 'sdsds';
+Route::prefix('user')->middleware('isUser')->group(function () {
+    Route::get('/dashboard', [App\Http\Controllers\UserController::class, 'index'])->name('user_dashboard');
 });
 
 

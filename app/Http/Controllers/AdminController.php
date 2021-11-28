@@ -18,4 +18,12 @@ class AdminController extends Controller
         
         return view('admin.dashboard',compact('kpi'));
     }
+
+    public function user(){
+        
+        $userType = \App\Models\UserType::get();
+        $locations = \App\Models\Location::get();
+        $departments = \App\Models\Department::get();
+        return view('auth.register',compact('userType','locations','departments'));
+    }
 }
