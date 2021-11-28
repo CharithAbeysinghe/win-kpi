@@ -17,12 +17,10 @@ class UserController extends Controller
     }
     
     public function index(){
-
-        $kpi = Kpi::where('department_id',2)->get();
-
-        dd(Auth::user()->department_id);
         
+        $kpi = Kpi::where('department_id',Auth::user()->department_id)->get();
         return view('department.dashboard',compact('kpi'));
+
     }
 
     public function register(Request $request){

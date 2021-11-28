@@ -17,4 +17,8 @@ class Kpi extends Model
     public function get_options(){
         return $this->hasMany(KpiOption::class,'kpi_id')->get();
     }
+
+    public function get_kpi_formulae(){
+        return $this->hasMany(KpiCalculation::class,'kpi_id')->get();
+    }
 }

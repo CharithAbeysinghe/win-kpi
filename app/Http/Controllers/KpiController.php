@@ -66,4 +66,18 @@ class KpiController extends Controller
             return redirect('kpi/kpi-option')->with('error', 'Profile updated!');       
         }
     }
+
+    public function kpi_formula() {
+
+        $kpi = Kpi::get();
+        return view('admin.kpi_formular',compact('kpi'));
+
+    }
+
+    public function kpi_option_load(Request $request) {
+
+        $kpiOption = KpiOption::where('kpi_id',$request->kpi)->get();
+        return view('admin.kpi_opt_load',compact('kpiOption'));
+
+    }
 }

@@ -53,6 +53,8 @@ Route::prefix('kpi')->middleware('isAdmin')->group(function (){
     Route::get('/view',[App\Http\Controllers\KpiController::class,'index'])->name('kpi-view');
     Route::get('kpi-option', [App\Http\Controllers\KpiController::class, 'index_option']);
     Route::post('add-option', [App\Http\Controllers\KpiController::class, 'add_option']);
+    Route::get('/kpi-formula',[App\Http\Controllers\KpiController::class,'kpi_formula']);
+    Route::get('/kpi-option-load',[App\Http\Controllers\KpiController::class,'kpi_option_load']);
 });
 
 Route::prefix('user')->middleware('isUser')->group(function () {
