@@ -14,6 +14,8 @@ class Kpi extends Model
         'kpi','department_id'
     ];
 
+    protected $primaryKey = 'id';
+
     public function get_options(){
         return $this->hasMany(KpiOption::class,'kpi_id')->get();
     }

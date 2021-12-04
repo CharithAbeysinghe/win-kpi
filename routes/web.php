@@ -24,6 +24,7 @@ Route::prefix('admin')->middleware('isAdmin')->group(function () {
     Route::get('/user', [App\Http\Controllers\AdminController::class, 'user'])->name('user');
     Route::post('/register',[App\Http\Controllers\UserController::class,'register']);
     Route::get('/user-permission', [App\Http\Controllers\AdminController::class, 'user_permission'])->name('user-permission');
+    Route::get('/delete_data',[App\Http\Controllers\AdminController::class,'delete_data'])->name('delete_data');
 });
 
 // Route::prefix('kpi')->middleware('isAdmin')->group(function (){

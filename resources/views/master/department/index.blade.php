@@ -13,6 +13,8 @@
 
     'url'    => "department/add",
 
+    'model' => 'Department',
+
     'form_component' => [
 
             ['ht_type'=>'input','name'=>'department'],
@@ -20,9 +22,9 @@
 
     'data_array' => $department,
 
-    'th_array'   => ['Department','Edit','Disable'],
+    'th_array'   => ['Department'],
 
-    'td_array'   => ['department','',''],
+    'td_array'   => ['department'],
 
     ])
 </div>

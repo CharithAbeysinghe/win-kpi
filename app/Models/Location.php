@@ -11,7 +11,7 @@ class Location extends Model
     use HasFactory,SoftDeletes;
 
     protected $fillable = ['location'];
-
+    protected $primaryKey = 'id';
     public function get_fillable(){
     }
 }

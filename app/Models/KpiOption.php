@@ -11,7 +11,7 @@ class KpiOption extends Model
     use HasFactory,SoftDeletes;
 
     protected $fillable = ['kpi_id','kpi_option'];
-
+    protected $primaryKey = 'id';
     public function get_kpi(){
         
         return $this->belongsTo(\App\Models\Kpi::class,'kpi_id')->first();

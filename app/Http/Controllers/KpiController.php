@@ -34,10 +34,10 @@ class KpiController extends Controller
             ]);
         
         DB::commit();
-            return redirect('kpi/view')->with('success', 'Profile updated!');
+            return redirect('kpi/view')->with('success', 'Kpi Add Successfully!');
         } catch (\Exception $e) {
             DB::rollback();
-            return redirect('kpi/view')->with('error', 'Profile updated!');       
+            return redirect('kpi/view')->with('error', 'Kpi Not Added!');       
         }
     }
 
@@ -60,10 +60,10 @@ class KpiController extends Controller
             ]);
         
         DB::commit();
-            return redirect('kpi/kpi-option')->with('success', 'Profile updated!');
+            return redirect('kpi/kpi-option')->with('success', 'Kpi option Add Successfully!');
         } catch (\Exception $e) {
             DB::rollback();
-            return redirect('kpi/kpi-option')->with('error', 'Profile updated!');       
+            return redirect('kpi/kpi-option')->with('error', 'Kpi option Not Added!');       
         }
     }
 

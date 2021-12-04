@@ -8,13 +8,14 @@
     [
     'header' => "New KPI",
     'url' => "kpi/add",
+    'model' => "Kpi",
     'form_component' => [
-    ['ht_type'=>'select','name'=>'department_id','array'=>$department,'array_opt'=>['value'=>'id','opt'=>'department']],
+    ['ht_type'=>'select','name'=>'department_id','array'=>$department,'array_opt'=>['value'=>'id','opt'=>'department'],'select_title'=>'Select Department'],
     ['ht_type'=>'input','name'=>'kpi']
     ],
     'data_array' => $kpi,
-    'th_array'=> ['kpi','Edit','Disable'],
-    'td_array'=> ['kpi','',''],
+    'th_array'=> ['kpi'],
+    'td_array'=> ['kpi'],
     ])
 </div>
 @endsection
