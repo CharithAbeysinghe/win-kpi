@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kpi;
 use App\Models\User;
+use App\Models\WeekAssignment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -17,9 +18,9 @@ class UserController extends Controller
     }
     
     public function index(){
-        
+        $weeks = WeekAssignment::get();
         $kpi = Kpi::where('department_id',Auth::user()->department_id)->get();
-        return view('department.dashboard',compact('kpi'));
+        return view('department.dashboard',compact('kpi','weeks'));
 
     }
 

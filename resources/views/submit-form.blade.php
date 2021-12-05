@@ -1,4 +1,9 @@
 
+<!-- jQuery -->
+<script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <div class="card">
     <div class="card-header">
         <div class="form-group">
@@ -39,3 +44,13 @@
     </div>
     <!-- /.card-body -->
 </div>
+<script>
+  $( document ).ready(function() {
+    $("#example1").DataTable();
+    // $("#example1").DataTable({
+    //   "responsive": true, "lengthChange": false, "autoWidth": false,
+    //   "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    // }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+   
+  });
+</script>

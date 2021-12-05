@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kpi;
+use App\Models\WeekAssignment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -52,6 +53,31 @@ class AdminController extends Controller
         } catch (\Exception $e) {
             DB::rollback();
             return back()->with('error', 'Not Deleted!');       
+        }
+    }
+
+    public function assign_week(Request $request){
+
+        $weeks = \App\Models\WeekAssignment::get();
+        return view('admin.week_assign',compact('weeks'));
+
+    }
+
+    public function week_add(Request $request){
+        DB::BeginTransaction();
+        try{
+
+            $week = WeekAssignment::create([
+                'week_name' => $request->week_name,
+                'start_date' => $request->start_date,
+                'end_date' => $request->end_date
+            ]);
+        
+        DB::commit();
+            return redirect('admin/assign_week')->with('success', 'Week Add Successfully!');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return redirect('admin/assign_week')->with('error', 'Week Not Added!');       
         }
     }
 }

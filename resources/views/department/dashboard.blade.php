@@ -29,12 +29,18 @@
         <h3 class="card-title">
           <div class="form-inline d-flex justify-content-center">
             <div class="form-group mb-2">
-              <label for="staticEmail2" class="sr-only">Date</label>
-              <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="Year-Month">
+              <label for="staticEmail2" class="sr-only">Select Week</label>
+              <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="Select Week">
             </div>
             <div class="form-group mx-sm-3 mb-2">
-              <label for="inputPassword2" class="sr-only">Password</label>
-              <input type="date" class="form-control" readonly id="inputPassword2" value="<?= date('Y-m-d'); ?>">
+              <label for="inputPassword2" class="sr-only"></label>
+              <select name="" id="">
+                
+              @foreach ($weeks as $item)
+                  <option value="{{$item->id}}">{{$item->week_name}}</option>
+              @endforeach
+              
+            </select>
             </div>
         </div>
         </h3>

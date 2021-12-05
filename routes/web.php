@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,6 +26,8 @@ Route::prefix('admin')->middleware('isAdmin')->group(function () {
     Route::post('/register',[App\Http\Controllers\UserController::class,'register']);
     Route::get('/user-permission', [App\Http\Controllers\AdminController::class, 'user_permission'])->name('user-permission');
     Route::get('/delete_data',[App\Http\Controllers\AdminController::class,'delete_data'])->name('delete_data');
+    Route::get('/assign_week',[App\Http\Controllers\AdminController::class,'assign_week'])->name('assign_week');
+    Route::post('/week_add',[App\Http\Controllers\AdminController::class,'week_add'])->name('week_add');
 });
 
 // Route::prefix('kpi')->middleware('isAdmin')->group(function (){
