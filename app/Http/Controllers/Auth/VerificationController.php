@@ -28,6 +28,16 @@ class VerificationController extends Controller
      */
     protected $redirectTo = RouteServiceProvider::HOME;
 
+    protected function redirectTo()
+    {
+        if (auth()->user()->u_tp_id == '1') {
+            return '/admin/dashboard';
+        }else if(auth()->user()->u_tp_id == '2'){
+            return '/user/dashboard';
+        }
+        
+    }
+
     /**
      * Create a new controller instance.
      *

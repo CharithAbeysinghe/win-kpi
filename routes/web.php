@@ -44,11 +44,6 @@ Route::prefix('department')->middleware('isAdmin')->group(function () {
     Route::get('/view', [App\Http\Controllers\DepartmentController::class, 'index'])->name('dep-view');
 });
 
-Route::prefix('department')->middleware('isAdmin')->group(function () {
-    Route::post('add', [App\Http\Controllers\DepartmentController::class, 'add']);
-    Route::get('/view', [App\Http\Controllers\DepartmentController::class, 'index'])->name('dep-view');
-});
-
 Route::prefix('kpi')->middleware('isAdmin')->group(function (){
     Route::post('add', [App\Http\Controllers\KpiController::class, 'add']);
     Route::get('/view',[App\Http\Controllers\KpiController::class,'index'])->name('kpi-view');
