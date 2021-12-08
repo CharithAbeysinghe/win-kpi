@@ -61,4 +61,10 @@ class UserController extends Controller
             'department_id' => $data['department_id']
         ]);
     }
+
+    public function submit(Request $request){
+
+        dd($request);
+
+    }
 }

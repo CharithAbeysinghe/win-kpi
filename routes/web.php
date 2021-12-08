@@ -58,6 +58,7 @@ Route::prefix('kpi')->middleware('isAdmin')->group(function (){
 
 Route::prefix('user')->middleware('isUser')->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\UserController::class, 'index'])->name('user_dashboard');
+    Route::post('/submit', [App\Http\Controllers\UserController::class, 'submit'])->name('submit');
 });
 
 

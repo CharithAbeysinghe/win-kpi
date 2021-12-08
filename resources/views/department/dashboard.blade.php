@@ -21,7 +21,8 @@
     </div><!-- /.container-fluid -->
   </div>
   <!-- /.content-header -->
-
+<form action="{{URL('user/submit')}}" method="post">
+  @csrf
 <div class="container">
 
     <div class="card">
@@ -34,7 +35,7 @@
             </div>
             <div class="form-group mx-sm-3 mb-2">
               <label for="inputPassword2" class="sr-only"></label>
-              <select name="" id="">
+              <select name="week_id" id="week_id">
                 
               @foreach ($weeks as $item)
                   <option value="{{$item->id}}">{{$item->week_name}}</option>
@@ -73,23 +74,31 @@
           <div class="tab-content" id="custom-tabs-four-tabContent">
             @foreach ($kpi as $key=>$items)
             <div class="tab-pane fade show @php echo ($key==0) ?  'active' : $key;  @endphp" id="custom-tabs-four-home{{$items->id}}" role="tabpanel" aria-labelledby="custom-tabs-four-home-tab{{$items->id}}">
-                <div>
+              <input type="text" id="kpi_id_{{$items->id}}" name="kpi_id_{{$items->id}}" value="{{$items->id}}">  
+              <div>
                   
-                  
+                  @php 
+                    $k=0;
+                  @endphp
                   @foreach($items->get_options() as $option)
                 
                   <div class="form-inline d-flex justify-content-center">
                     <div class="form-group mb-2">
                       <label for="staticEmail2" class="sr-only"></label>
-                      <input type="text" readonly class="form-control-plaintext" value="{{$option->kpi_option}}">
+                      <input type="text"  readonly class="form-control-plaintext" value="{{$option->kpi_option}}">
+                      <input type="text" id="kpi_opt_id_{{$items->id}}_{{$k}}" name="kpi_opt_id_{{$items->id}}_{{$k}}"  value="{{$option->id}}">
                     </div>
                     <div class="form-group mx-sm-3 mb-2">
                       <label for="inputPassword2" class="sr-only"></label>
-                      <input type="test" class="form-control kpi_{{$items->id}}" id="opt_{{$items->id}}_{{$option->id}}"  onkeyup="calculate_kpi_data({{$items->id}})">
+                      <input type="text" name="kpi_opt_val_{{$items->id}}_{{$k}}" id="kpi_opt_val_{{$items->id}}_{{$k}}" class="form-control kpi_{{$items->id}}" id="opt_{{$items->id}}_{{$option->id}}"  onkeyup="calculate_kpi_data({{$items->id}})">
                     </div>
-                </div> 
+                </div>      
+                  @php 
+                    $k++;
+                  @endphp
                   @endforeach
                 </div>
+                <input type="text" name="kpi_opt_count_{{$items->id}}" value="{{$k}}">
                 <hr>
                 <div class=" mt-5">
                   @foreach($items->get_kpi_formulae() as $option)
@@ -122,7 +131,7 @@
                 <button type="button" class="btn btn-block btn-outline-warning btn-lg">Cancel</button>
               </div>
               <div class="col-md-2">
-                <button type="button" class="btn btn-block btn-outline-success btn-lg">Submit</button>
+                <button type="submit" class="btn btn-block btn-outline-success btn-lg">Submit</button>
               </div>
               <div  class="col-md-4"></div>
             </div>
@@ -131,7 +140,7 @@
       </div>
 
 </div>
-
+</form>
 <script>
 
   function calculate_kpi_data(kpi){
