@@ -12,4 +12,7 @@ class Department extends Model
     protected $primaryKey = 'id';
     protected $fillable = ['department'];
 
+    public function get_kpi_per_department(){
+        return $this->hasMany(Kpi::class,'department_id')->get();
+    }
 }

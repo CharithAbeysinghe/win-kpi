@@ -9,4 +9,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class UserKpi extends Model
 {
     use HasFactory,SoftDeletes;
+
+    protected $fillable = [
+        'department_id',
+        'year',
+        'month',
+        'week_id'
+    ];
 }
