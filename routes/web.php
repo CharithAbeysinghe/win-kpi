@@ -26,8 +26,11 @@ Route::prefix('admin')->middleware('isAdmin')->group(function () {
     Route::post('/register',[App\Http\Controllers\UserController::class,'register']);
     Route::get('/user-permission', [App\Http\Controllers\AdminController::class, 'user_permission'])->name('user-permission');
     Route::get('/delete_data',[App\Http\Controllers\AdminController::class,'delete_data'])->name('delete_data');
+    Route::get('/update_data',[App\Http\Controllers\AdminController::class,'update_data'])->name('update_data');
     Route::get('/assign_week',[App\Http\Controllers\AdminController::class,'assign_week'])->name('assign_week');
     Route::post('/week_add',[App\Http\Controllers\AdminController::class,'week_add'])->name('week_add');
+    Route::get('kpi-per-department',[App\Http\Controllers\AdminController::class,'kpi_per_department'])->name('kpi_per_department');
+    Route::get('kpi-result',[App\Http\Controllers\AdminController::class,'kpi_result'])->name('kpi_result');
 });
 
 // Route::prefix('kpi')->middleware('isAdmin')->group(function (){
@@ -53,6 +56,7 @@ Route::prefix('kpi')->middleware('isAdmin')->group(function (){
     Route::get('kpi-option', [App\Http\Controllers\KpiController::class, 'index_option']);
     Route::post('add-option', [App\Http\Controllers\KpiController::class, 'add_option']);
     Route::get('/kpi-formula',[App\Http\Controllers\KpiController::class,'kpi_formula']);
+    Route::post('save-formula',[App\Http\Controllers\KpiController::class,'save_formula']);
     Route::get('/kpi-option-load',[App\Http\Controllers\KpiController::class,'kpi_option_load']);
 });
 

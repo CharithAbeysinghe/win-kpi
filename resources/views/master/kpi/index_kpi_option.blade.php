@@ -15,7 +15,7 @@
     ],
     'data_array' => $kpiOption,
     'th_array'=> ['kpi','kpi option'],
-    'td_array'=> ['get_kpi()->kpi','kpi_option'],
+    'td_array'=> ['kpi','kpi_option'],
     ])
 </div>
 @endsection

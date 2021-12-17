@@ -35,7 +35,7 @@
             </div>
             <div class="form-group mx-sm-3 mb-2">
               <label for="inputPassword2" class="sr-only"></label>
-              <select name="week_id" id="week_id" onchange="set_start_end(this.arr_end)">
+              <select name="week_id" id="week_id" class="form-control" onchange="set_start_end(this.arr_end)">
                 @foreach ($weeks as $item)
                     <option att_end="{{$item->end_date}}" att_st="{{$item->start_date}}" value="{{$item->id}}">{{$item->week_name}}</option>
                 @endforeach
@@ -107,15 +107,18 @@
                     <div class="form-group mb-2">
                       <label for="staticEmail2" class="sr-only"></label>
                       <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="{{$option->formula_label}}">
+                      <input type="hidden" name="kpi_eq_ids_{{$items->id}}_{{$x}}" class="form-control-plaintext" id="staticEmail2" value="{{$option->id}}">
                     </div>
                     <div class="form-group mx-sm-3 mb-2">
                       <label for="inputPassword2" class="sr-only"></label>
-                      <input type="test" class="form-control" id="eq_id_{{$items->id}}_{{$x}}" placeholder="" value="{{$option->formula}}">
+                      <input type="hidden" class="form-control" id="eq_id_{{$items->id}}_{{$x}}" placeholder="" value="{{$option->formula}}">
+                      <input type="hidden" id="is_perce_{{$items->id}}_{{$x}}" value="{{$option->is_perce}}">
+                      <input type="text" name = "total_val_{{$items->id}}_{{$x}}" id="total_val_{{$items->id}}_{{$x}}" class="form-control">
                     </div>
                 </div>
                 @php $x++; @endphp
                 @endforeach
-                <input type="text" id="kpi_eq_count_{{$items->id}}" value="{{$x}}">
+                <input type="hidden" name="kpi_eq_count_{{$items->id}}" id="kpi_eq_count_{{$items->id}}" value="{{$x}}">
                 </div>
  
             </div>
@@ -183,10 +186,26 @@
               tot += nameArr[t];
             }
            
-
           }
 
-          console.log('yiu:'+eval(tot));
+          if($('#is_perce_'+kpi+'_'+eq).val() == 'on'){
+
+            if (isFinite(eval(tot))) {
+              $('#total_val_'+kpi+'_'+eq).val(eval(tot) * 100);
+            }else{
+              $('#total_val_'+kpi+'_'+eq).val(0 * 100);
+            }
+            
+
+          }else{
+            if (isFinite(eval(tot))) {
+              $('#total_val_'+kpi+'_'+eq).val(eval(tot));
+            }else{
+              $('#total_val_'+kpi+'_'+eq).val(0);
+            }
+            
+            
+          }
 
       }
 
@@ -209,7 +228,7 @@
   }
 
   function set_start_end(id){
-    alert(id);
+    // alert(id);
   }
 
 

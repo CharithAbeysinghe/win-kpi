@@ -6,16 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class UserKpi extends Model
+class UserKpiTotals extends Model
 {
     use HasFactory,SoftDeletes;
 
     protected $fillable = [
-        'department_id',
-        'year',
-        'month',
-        'week_id',
-        'user_id',
-        'location_id'
+        'user_kpi_id',
+        'kpi_eq_id',
+        'kpi_eq_id',
+        'amount'
     ];
 }

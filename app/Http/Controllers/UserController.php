@@ -6,6 +6,7 @@ use App\Models\Kpi;
 use App\Models\User;
 use App\Models\UserKpi;
 use App\Models\UserKpiDetail;
+use App\Models\UserKpiTotals;
 use App\Models\WeekAssignment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -70,6 +71,8 @@ class UserController extends Controller
         $user = Auth::user();
         $kpis =$user->get_user_department()->get_kpi_per_department();
         $user_id = $user->id;
+        $user_id = $user->id;
+        $user_location_id = $user->location_id;
         $week_id = $request->week_id;
         $is_null = 0;
         
@@ -78,7 +81,9 @@ class UserController extends Controller
 
             $userKpi = UserKpi::create([
                 'department_id' => $user->department_id,
-                'week_id' => $week_id
+                'week_id' => $week_id,
+                'user_id' => $user_id,
+                'location_id' => $user_location_id,
             ]);
 
             foreach($kpis as $kpi_ids){
@@ -100,6 +105,21 @@ class UserController extends Controller
                         $is_null++;
                     }
                 }
+                $var_eq = 'kpi_eq_count_'.$kpi_ids->id;
+                if(($request->$var_eq) > 0){
+                for($eq = 0; $eq < $request->$var_eq; $eq++){
+                    $eq_vls_ids = 'kpi_eq_ids_'.$kpi_ids->id.'_'.$eq;
+                    $eq_vls = 'total_val_'.$kpi_ids->id.'_'.$eq;
+
+                    if(isset($request->$opt_var_val) != ""){
+                        $UserKpiTotals = UserKpiTotals::create([
+                            'user_kpi_id' => $userKpi->id,
+                            'kpi_eq_id' => $request->$eq_vls_ids,
+                            'amount' => $request->$eq_vls,
+                        ]);
+                    }
+                }
+            }
             }
 
         DB::commit();

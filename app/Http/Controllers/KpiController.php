@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kpi;
 use App\Models\Department;
+use App\Models\KpiCalculation;
 use App\Models\KpiOption;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -43,7 +44,9 @@ class KpiController extends Controller
 
     public function index_option(){
         $kpi = Kpi::get();
-        $kpiOption = KpiOption::get();
+        $kpiOption = KpiOption::join('kpis','kpis.id','kpi_options.kpi_id')
+        ->select('kpi_options.id','kpi_options.kpi_option','kpis.kpi')
+        ->get();
         $title = 'KPI OPTION';
         $page = 'KPI';
         $page_sub = 'View';
@@ -70,7 +73,8 @@ class KpiController extends Controller
     public function kpi_formula() {
 
         $kpi = Kpi::get();
-        return view('admin.kpi_formular',compact('kpi'));
+        $kpieqs = KpiCalculation::get();
+        return view('admin.kpi_formular',compact('kpi','kpieqs'));
 
     }
 
@@ -78,6 +82,28 @@ class KpiController extends Controller
 
         $kpiOption = KpiOption::where('kpi_id',$request->kpi)->get();
         return view('admin.kpi_opt_load',compact('kpiOption'));
+
+    }
+
+    public function save_formula(Request $request){
+        
+        DB::BeginTransaction();
+        try{
+
+            $kpi = KpiCalculation::create([
+                'kpi_id' => $request->kpi_id,
+                'formula_label' => $request->eq_label,
+                'formula' => rtrim($request->real_form, ','),
+                'formula_string'=>rtrim($request->real_form_value, ','),
+                'is_perce'=> $request->is_perce
+            ]);
+        
+        DB::commit();
+            return redirect('kpi/kpi-formula')->with('success', 'Added Successfully!');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return redirect('kpi/kpi-formula')->with('error', 'Not Added!');       
+        }
 
     }
 }
