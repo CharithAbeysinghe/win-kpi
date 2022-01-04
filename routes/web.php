@@ -24,6 +24,9 @@ Route::prefix('admin')->middleware('isAdmin')->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\AdminController::class, 'index'])->name('admin_dashboard');
     Route::get('/user', [App\Http\Controllers\AdminController::class, 'user'])->name('user');
     Route::post('/register',[App\Http\Controllers\UserController::class,'register']);
+    Route::get('/user-view',[App\Http\Controllers\UserController::class,'user_view']);
+    Route::get('/user-edit-popup',[App\Http\Controllers\UserController::class,'user_edit_popup'])->name('user_edit_popup');
+    Route::post('/user-edit',[App\Http\Controllers\UserController::class,'user_edit'])->name('user_edit');
     Route::get('/user-permission', [App\Http\Controllers\AdminController::class, 'user_permission'])->name('user-permission');
     Route::get('/delete_data',[App\Http\Controllers\AdminController::class,'delete_data'])->name('delete_data');
     Route::get('/update_data',[App\Http\Controllers\AdminController::class,'update_data'])->name('update_data');

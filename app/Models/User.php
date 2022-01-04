@@ -49,4 +49,12 @@ class User extends Authenticatable
     public function get_user_department(){
         return $this->belongsTo(Department::class,'department_id')->first();
     }
+
+    public function get_user_location(){
+        return $this->belongsTo(Location::class,'location_id')->first();
+    }
+
+    public function get_user_type(){
+        return $this->belongsTo(UserType::class,'u_tp_id')->first();
+    }
 }

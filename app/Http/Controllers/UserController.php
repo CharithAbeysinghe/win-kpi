@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
 use App\Models\Kpi;
 use App\Models\User;
 use App\Models\UserKpi;
 use App\Models\UserKpiDetail;
 use App\Models\UserKpiTotals;
 use App\Models\WeekAssignment;
+use App\Models\Location;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -135,5 +137,58 @@ class UserController extends Controller
             DB::rollback();
             return redirect('user/dashboard')->with('error', 'error!');       
         }
+    }
+
+    public function user_view(){
+        $getUser = User::get();
+        return view('auth.user',compact('getUser'));
+    }
+
+    public function user_edit_popup(Request $request){
+        $getUser = User::find($request->id);
+        $userType = [
+           ['id' => '1', 'type'=>'Admin'],
+           ['id' => '2', 'type'=>'User']
+        ];
+        $department = Department::get();
+        $location = Location::get();
+        
+        return view('auth.edit_popup',compact('getUser','userType','department','location'));
+    }
+
+    public function user_edit(Request $request){
+
+        $department_id = isset($request->department_id) ? $request->department_id : 0;
+        $location_id = isset($request->location_id) ? $request->location_id : 0;
+        $password = $request->password;
+        $email = $request->email;
+        $u_tp_id = $request->u_tp_id;
+        $name = $request->name;
+        $u_id = $request->u_id;
+
+        DB::BeginTransaction();
+        try{
+
+                $flight = \App\Models\User::find($u_id);
+                $flight->name = $name;
+                $flight->email = $email;
+                if($flight->password !="" && $flight->password != null ){
+                    $flight->password = Hash::make($password);
+                }
+                $flight->u_tp_id = $u_tp_id;
+                $flight->location_id = $location_id;
+                $flight->department_id = $department_id;
+            
+
+            $flight->save();
+        
+        DB::commit();
+            return redirect('admin/user-view')->with('success', 'Successfully Updated!'); 
+        } catch (\Exception $e) {
+            DB::rollback();
+            return redirect('admin/user-view')->with('error', 'error');      
+        }
+
+
     }
 }

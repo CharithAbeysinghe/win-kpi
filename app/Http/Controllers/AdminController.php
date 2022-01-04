@@ -49,6 +49,8 @@ class AdminController extends Controller
                 $flight = \App\Models\Department::find($request->id);
             }else if($model == 'KpiCalculation'){
                 $flight = \App\Models\KpiCalculation::find($request->id);
+            }else if($model == 'User'){
+                $flight = \App\Models\User::find($request->id);
             } 
 
             $flight->delete();
