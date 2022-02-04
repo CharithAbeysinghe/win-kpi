@@ -112,7 +112,9 @@
                     <div class="form-group mx-sm-3 mb-2">
                       <label for="inputPassword2" class="sr-only"></label>
                       <input type="hidden" class="form-control" id="eq_id_{{$items->id}}_{{$x}}" placeholder="" value="{{$option->formula}}">
-                      <input type="hidden" id="is_perce_{{$items->id}}_{{$x}}" value="{{$option->is_perce}}">
+                      <input type="hidden" id="is_perce_{{$items->id}}_{{$x}}"
+                      name="is_perce_{{$items->id}}_{{$x}}"
+                      value="{{$option->is_perce}}">
                       <input type="text" name = "total_val_{{$items->id}}_{{$x}}" id="total_val_{{$items->id}}_{{$x}}" class="form-control">
                     </div>
                 </div>
@@ -191,7 +193,8 @@
           if($('#is_perce_'+kpi+'_'+eq).val() == 'on'){
 
             if (isFinite(eval(tot))) {
-              $('#total_val_'+kpi+'_'+eq).val(eval(tot) * 100);
+                var vl = (eval(tot)*100).toFixed(2);
+              $('#total_val_'+kpi+'_'+eq).val(numberWithCommas(vl)+'%');
             }else{
               $('#total_val_'+kpi+'_'+eq).val(0 * 100);
             }
@@ -199,7 +202,8 @@
 
           }else{
             if (isFinite(eval(tot))) {
-              $('#total_val_'+kpi+'_'+eq).val(eval(tot));
+                var vl = eval(tot).toFixed(2);
+              $('#total_val_'+kpi+'_'+eq).val(numberWithCommas(vl));
             }else{
               $('#total_val_'+kpi+'_'+eq).val(0);
             }
@@ -230,6 +234,10 @@
   function set_start_end(id){
     // alert(id);
   }
+  
+  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 
 
    

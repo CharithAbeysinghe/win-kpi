@@ -75,7 +75,7 @@
               });
             $.ajax({
                type:'get',
-               url:'/admin/update_data',
+               url:'/public/admin/update_data',
                data:{
                  id:id,
                  tbl:model,

@@ -12,6 +12,11 @@ class WeekAssignment extends Model
 
     protected $primaryKey = 'id';
     
-    protected $fillable = ['week_name','start_date','end_date'];
+    protected $fillable = 
+    ['week_name',
+    'start_date',
+    'end_date',
+    'current_week_status'
+    ];
 
 }

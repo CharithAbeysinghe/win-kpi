@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name') }}</title>
-
+    <link rel="icon" type="image/x-icon" href="{{ asset('dist/img/AdminLTELogo.png') }}">
      <!-- Google Font: Source Sans Pro -->
      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
      <!-- Font Awesome -->
@@ -119,9 +119,6 @@
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
-        </div>
         <div class="info">
           <a href="#" class="d-block">{{Auth::user()->u_type_id}}</a>
         </div>
@@ -180,7 +177,7 @@
             </ul>
           </li>
 
-          <li class="nav-item">
+           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon far"></i>
               <p>
@@ -240,7 +237,7 @@
             @yield('content')
           </div>
          <!-- /.content-wrapper -->
- <footer class="main-footer fixed-bottom">
+ <footer class="main-footer">
     <strong>Copyright &copy; 2021 <a href="https://www.winterquilts.com/">Winterquilts</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">

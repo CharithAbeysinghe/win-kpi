@@ -49,8 +49,6 @@ class AdminController extends Controller
                 $flight = \App\Models\Department::find($request->id);
             }else if($model == 'KpiCalculation'){
                 $flight = \App\Models\KpiCalculation::find($request->id);
-            }else if($model == 'User'){
-                $flight = \App\Models\User::find($request->id);
             } 
 
             $flight->delete();
@@ -142,6 +140,7 @@ class AdminController extends Controller
 
 
     public function update_data(Request $request) {
+        
         DB::BeginTransaction();
         try{
             $model = $request->tbl;
@@ -166,6 +165,29 @@ class AdminController extends Controller
         
         DB::commit();
             echo json_encode(array('result'=>true,'data'=>$request->vale));
+        } catch (\Exception $e) {
+            DB::rollback();
+            echo json_encode(array('result'=>false));      
+        }
+    }
+    
+    public function enable_disable_week(Request $request){
+  
+        DB::BeginTransaction();
+        try{
+            
+                $flight = \App\Models\WeekAssignment::find($request->id);
+                $flight->current_week_status = 1;
+                $flight->save();
+
+                //update others to 0
+
+                WeekAssignment::where('id','!=',$request->id)
+                ->update(['current_week_status' => 0]);
+
+        
+        DB::commit();
+            echo json_encode(array('result'=>true));
         } catch (\Exception $e) {
             DB::rollback();
             echo json_encode(array('result'=>false));      

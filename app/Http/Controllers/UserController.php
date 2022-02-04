@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Department;
 use App\Models\Kpi;
 use App\Models\User;
 use App\Models\UserKpi;
@@ -10,6 +9,7 @@ use App\Models\UserKpiDetail;
 use App\Models\UserKpiTotals;
 use App\Models\WeekAssignment;
 use App\Models\Location;
+use App\Models\Department;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -24,6 +24,7 @@ class UserController extends Controller
     }
     
     public function index(){
+        //$weeks = WeekAssignment::where('current_week_status',1)->get();
         $weeks = WeekAssignment::get();
         $kpi = Kpi::where('department_id',Auth::user()->department_id)->get();
         return view('department.dashboard',compact('kpi','weeks'));
@@ -112,12 +113,26 @@ class UserController extends Controller
                 for($eq = 0; $eq < $request->$var_eq; $eq++){
                     $eq_vls_ids = 'kpi_eq_ids_'.$kpi_ids->id.'_'.$eq;
                     $eq_vls = 'total_val_'.$kpi_ids->id.'_'.$eq;
+                    $is_perce = 'is_perce_'.$kpi_ids->id.'_'.$eq;
+                    
+                    $is_perce_on = "";
+                    $is_perce_off = "";
+                    
+                    if (strpos($request->$eq_vls, '%') !== false) {
+                        $is_perce_on = $request->$eq_vls;
+                        $is_perce_off = "";
+                    }else{
+                        $is_perce_off = $request->$eq_vls;
+                        $is_perce_on = "";
+                    }
 
                     if(isset($request->$opt_var_val) != ""){
                         $UserKpiTotals = UserKpiTotals::create([
                             'user_kpi_id' => $userKpi->id,
                             'kpi_eq_id' => $request->$eq_vls_ids,
                             'amount' => $request->$eq_vls,
+                            'amt' => $is_perce_off,
+                            'amt_percentage' => $is_perce_on,
                         ]);
                     }
                 }
@@ -138,12 +153,13 @@ class UserController extends Controller
             return redirect('user/dashboard')->with('error', 'error!');       
         }
     }
-
+    
+    
     public function user_view(){
         $getUser = User::get();
         return view('auth.user',compact('getUser'));
     }
-
+    
     public function user_edit_popup(Request $request){
         $getUser = User::find($request->id);
         $userType = [

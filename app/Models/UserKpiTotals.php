@@ -14,6 +14,8 @@ class UserKpiTotals extends Model
         'user_kpi_id',
         'kpi_eq_id',
         'kpi_eq_id',
-        'amount'
+        'amount',
+        'amt',
+        'amt_percentage'
     ];
 }
