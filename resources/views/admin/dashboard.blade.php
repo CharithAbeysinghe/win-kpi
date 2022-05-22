@@ -93,7 +93,7 @@
     var week_id = $('#week_id').val();
     var department_id = $('#department_id').val();
     console.log(kpi_id+'-'+week_id+'-'+department_id);
-    $('#result_dev').load('/admin/kpi-result?week_id='+week_id+'&kpi_id='+kpi_id+'&department_id='+department_id);
+    $('#result_dev').load('kpi-result?week_id='+week_id+'&department_id='+department_id);
   }
 </script>
 @endsection
