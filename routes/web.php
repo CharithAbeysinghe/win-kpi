@@ -33,10 +33,10 @@ Route::prefix('admin')->middleware('isAdmin')->group(function () {
     Route::get('/assign_week',[App\Http\Controllers\AdminController::class,'assign_week'])->name('assign_week');
     Route::post('/week_add',[App\Http\Controllers\AdminController::class,'week_add'])->name('week_add');
     Route::get('kpi-per-department',[App\Http\Controllers\AdminController::class,'kpi_per_department'])->name('kpi_per_department');
-    Route::get('kpi-result',[App\Http\Controllers\AdminController::class,'kpi_result'])->name('kpi_result');
-    Route::get('enable-disable-week',[App\Http\Controllers\AdminController::class,'enable_disable_week'])->name('enable-disable-week');
+    Route::get('/kpi-result',[App\Http\Controllers\AdminController::class,'kpi_result'])->name('kpi_result');
+    Route::get('/enable-disable-week',[App\Http\Controllers\AdminController::class,'enable_disable_week'])->name('enable-disable-week');
     Route::get('/editdashboard', [App\Http\Controllers\UserController::class, 'index_edit'])->name('edit_dashboard');
-    Route::post('submit_update', [App\Http\Controllers\UserController::class, 'submit_update'])->name('submit_update');
+    Route::post('/submit_update', [App\Http\Controllers\UserController::class, 'submit_update'])->name('submit_update');
 });
 
 // Route::prefix('kpi')->middleware('isAdmin')->group(function (){
