@@ -15,4 +15,8 @@ class Department extends Model
     public function get_kpi_per_department(){
         return $this->hasMany(Kpi::class,'department_id')->get();
     }
+    
+    public function get_week_name($id){
+        return $this::where('id',$id)->first();
+    }
 }

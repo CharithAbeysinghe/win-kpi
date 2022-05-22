@@ -51,15 +51,7 @@
             <td></td>
             </tr>
             <tr>
-              <td>Kpi</td>
-              <td>
-                <select class="form-control" name="kpi_id" id="kpi_id" >
-                  <option value="0">--select--</option>
-                  @foreach ($kpi as $item)
-                  <option value="{{$item->id}}">{{$item->kpi}}</option>
-                  @endforeach
-                </select>
-              </td>
+              
               <td><button class="btn btn-block btn-outline-warning btn-lg" onclick="load_result()">Search</button></td>
             </tr>
           </table>

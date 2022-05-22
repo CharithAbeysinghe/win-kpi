@@ -35,6 +35,8 @@ Route::prefix('admin')->middleware('isAdmin')->group(function () {
     Route::get('kpi-per-department',[App\Http\Controllers\AdminController::class,'kpi_per_department'])->name('kpi_per_department');
     Route::get('kpi-result',[App\Http\Controllers\AdminController::class,'kpi_result'])->name('kpi_result');
     Route::get('enable-disable-week',[App\Http\Controllers\AdminController::class,'enable_disable_week'])->name('enable-disable-week');
+    Route::get('/editdashboard', [App\Http\Controllers\UserController::class, 'index_edit'])->name('edit_dashboard');
+    Route::post('submit_update', [App\Http\Controllers\UserController::class, 'submit_update'])->name('submit_update');
 });
 
 // Route::prefix('kpi')->middleware('isAdmin')->group(function (){
@@ -67,7 +69,49 @@ Route::prefix('kpi')->middleware('isAdmin')->group(function (){
 Route::prefix('user')->middleware('isUser')->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\UserController::class, 'index'])->name('user_dashboard');
     Route::post('/submit', [App\Http\Controllers\UserController::class, 'submit'])->name('submit');
+    
 });
 
+Route::prefix('editor')->middleware('isEditor')->group(function () {
+    // Route::get('/editdashboard', [App\Http\Controllers\UserController::class, 'index_edit'])->name('edit_dashboard');
+});
+
+Route::group(['namespace' => 'App\Http\Controllers'], function()
+{  
+Route::group(['middleware' => ['auth', 'permission']], function() {
+    /**
+     * Logout Routes
+     */
+
+    /**
+     * User Routes
+     */
+    // Route::group(['prefix' => 'users'], function() {
+    //     Route::get('/', 'UsersController@index')->name('users.index');
+    //     Route::get('/create', 'UsersController@create')->name('users.create');
+    //     Route::post('/create', 'UsersController@store')->name('users.store');
+    //     Route::get('/{user}/show', 'UsersController@show')->name('users.show');
+    //     Route::get('/{user}/edit', 'UsersController@edit')->name('users.edit');
+    //     Route::patch('/{user}/update', 'UsersController@update')->name('users.update');
+    //     Route::delete('/{user}/delete', 'UsersController@destroy')->name('users.destroy');
+    // });
+
+    /**
+     * User Routes
+     */
+    // Route::group(['prefix' => 'posts'], function() {
+    //     Route::get('/', 'PostsController@index')->name('posts.index');
+    //     Route::get('/create', 'PostsController@create')->name('posts.create');
+    //     Route::post('/create', 'PostsController@store')->name('posts.store');
+    //     Route::get('/{post}/show', 'PostsController@show')->name('posts.show');
+    //     Route::get('/{post}/edit', 'PostsController@edit')->name('posts.edit');
+    //     Route::patch('/{post}/update', 'PostsController@update')->name('posts.update');
+    //     Route::delete('/{post}/delete', 'PostsController@destroy')->name('posts.destroy');
+    // });
+
+    Route::resource('roles', RolesController::class);
+    Route::resource('permissions', PermissionsController::class);
+});
+});
 
 

@@ -34,6 +34,8 @@ class LoginController extends Controller
             return '/admin/dashboard';
         }else if(auth()->user()->u_tp_id == '2'){
             return '/user/dashboard';
+        }else if(auth()->user()->u_tp_id == '3'){
+            return '/editor/editdashboard';
         }
         
     }

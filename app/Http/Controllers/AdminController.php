@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Department;
 use App\Models\Kpi;
 use App\Models\KpiCalculation;
+use App\Models\User;
 use App\Models\UserKpi;
 use App\Models\UserKpiDetail;
 use App\Models\UserKpiTotals;
@@ -24,7 +25,7 @@ class AdminController extends Controller
         $kpi = Kpi::where('department_id',2)->get();
         $weeks = WeekAssignment::get();
         $departments = \App\Models\Department::get();
-        return view('admin.dashboard_index',compact('kpi','weeks','departments'));
+        return view('admin.dashboard',compact('kpi','weeks','departments'));
     }
 
     public function user(){
@@ -92,6 +93,60 @@ class AdminController extends Controller
     }
 
     public function kpi_result(Request $request){
+
+        $kpi_data = UserKpi::whereNull('deleted_at')->orderBy('id', 'asc');
+        
+        if($request->week_id != 0){
+            $kpi_data->where('week_id',$request->week_id);
+        }
+
+        if($request->department_id != 0){
+            $kpi_data->where('department_id',$request->department_id);
+        }
+
+        $kpi_id = 0;
+        if($request->kpi_id != 0){
+            $kpi_id = $request->kpi_id;
+        }
+
+        $kpi_data = $kpi_data->get();
+
+        // dd($kpi_data);
+
+        $main_array = array();
+        $kpi_data->transform(function($transform) use($kpi_id) {
+            
+            $kpi_opt_details = UserKpiDetail::where('user_kpi_id',$transform->id);
+
+            if($kpi_id != 0){
+
+                $kpi_opt_details->where('kpi_id',$kpi_id);
+
+            }
+
+            $kpi_opt_details = $kpi_opt_details->get();
+
+            $kpi_totals = UserKpiTotals::where('user_kpi_id',$transform->id)->get();
+            $WeekAssignment = new WeekAssignment();
+            $department_modal = new Department();
+            return [
+                'department' => $transform->department_id,
+                'week'       => $transform->week_id,
+                'department_name' => $department_modal->get_week_name($transform->department_id)->department,
+                'week_name' => !empty($WeekAssignment->get_week_name($transform->week_id)->week_name) ? $WeekAssignment->get_week_name($transform->week_id)->week_name : "",
+                'user'       => !empty(User::where('id',$transform->user_id)->first('name')->name) ? User::where('id',$transform->user_id)->first('name')->name : "",
+                'added_date' => $transform->created_at,
+                'week'       => $transform->week_id,
+                'kpi_data'   => $kpi_opt_details,
+                'kpi_total'  => $kpi_totals,
+                'kpi_id'  => $transform->id,
+            ];
+        });
+
+        return view('admin.dashboard_data_list',compact('kpi_data'));
+    }
+
+    public function kpi_result__detail(Request $request){
 
         $kpi_data = UserKpi::whereNull('deleted_at')->orderBy('id', 'asc');
         
